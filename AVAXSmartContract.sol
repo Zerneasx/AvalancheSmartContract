@@ -1,31 +1,34 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract ExampleContract {
+contract SimpleWallet {
     address public owner;
-    uint public minValue = 10;
+    uint256 public balance;
 
     constructor() {
         owner = msg.sender;
     }
 
-    function setMinValue(uint _minValue) public onlyOwner {
-        // Using require() to check a condition
-        require(_minValue > 0, "Minimum value must be greater than zero");
-        minValue = _minValue;
-    }
-
-  function assertExample(uint x, uint y) public pure returns (uint) {
-        assert(x == y);
-        return x + y;
-    }
-
-    function revertExample() public pure returns (bool) {
-        revert("This transaction has been intentionally reverted");
-    }
-
     modifier onlyOwner() {
         require(msg.sender == owner, "Only the owner can call this function");
         _;
+    }
+
+    function deposit(uint256 amount) public payable {
+        uint256 newBalance = balance + amount;
+        assert(newBalance == 1000); 
+        balance = newBalance;
+    }
+
+    function withdraw(uint256 amount) public onlyOwner {
+        require(amount > 0, "The amount must be greater than 0");
+        require(balance >= amount, "Insufficient funds");
+        if (amount <= 250) {
+            revert("Revert condition: amount should not be less than or equal to 250");
+        }
+
+        uint256 newBalance = balance - amount;
+        assert(newBalance <= balance); 
+        balance = newBalance;
     }
 }

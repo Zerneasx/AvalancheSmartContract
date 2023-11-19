@@ -1,14 +1,14 @@
-# AVAX Smart Contract
+# Simple Bank Wallet
 
 ## Overview
-This repository contains a simple Solidity smart contract named ExampleContract. The contract showcases basic functionality, including state variables, a constructor, functions with modifiers, and examples of `require`, `assert`, and `revert` statements.
+This repository contains a simple Solidity smart contract named SimpleWallet. The contract serves as a basic wallet, allowing deposits and withdrawals, with ownership control to ensure secure operations. It includes examples of using modifiers, assertions, and revert statements.
 
 ## Contract Details
 
 ### State Variables
 
-- `owner`: The address of the contract owner.
-- `minValue`: A public variable representing the minimum value, initially set to 10.
+- `owner`: The address of the wallet owner.
+- `balance`: The current balance of the wallet.
 
 ### Constructor
 
@@ -16,20 +16,17 @@ This repository contains a simple Solidity smart contract named ExampleContract.
 
 ### Functions
 
-#### `setMinValue(uint _minValue) public onlyOwner`
+#### `deposit(uint256 amount) public payable`
 
-- Allows the owner to set the minimum value.
+- Allows anyone to deposit funds into the wallet.
+- Demonstrates the use of `assert` to ensure the new balance is a specific value (in this case, 1000).
+
+#### `withdraw(uint256 amount) public onlyOwner`
+
+- Allows the owner to withdraw funds from the wallet.
 - Uses the `onlyOwner` modifier to restrict access to the owner.
-- Uses `require` to check if the provided minimum value is greater than zero.
-
-#### `assertExample(uint x, uint y) public pure returns (uint)`
-
-- Demonstrates the use of `assert` to check if two values are equal.
-- Returns the sum of `x` and `y` if the assertion passes.
-
-#### `revertExample() public pure returns (bool)`
-
-- Illustrates a function intentionally reverting a transaction with a custom error message.
+- Requires the withdrawal amount to be greater than zero and checks for sufficient funds.
+- Intentionally reverts the transaction with a custom error message if the withdrawal amount is less than or equal to 250.
 
 ### Modifier
 
@@ -42,4 +39,6 @@ This repository contains a simple Solidity smart contract named ExampleContract.
 Deploy the contract to an Ethereum-compatible blockchain using a tool like Remix or Truffle.
 
 ## Author
-Donato, Zeno 202011124@fit.edu.ph
+Donato, Zeno
+Email: 202011124@fit.edu.ph
+```

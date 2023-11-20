@@ -23,7 +23,6 @@ This repository contains a simple Solidity smart contract named SimpleWallet. Th
 #### `withdraw(uint256 amount) public onlyOwner`
 
 - Allows the owner to withdraw funds from the wallet.
-- Uses the `onlyOwner` modifier to restrict access to the owner.
 - Requires the withdrawal amount to be greater than zero and checks for sufficient funds.
 - Intentionally reverts the transaction with a custom error message if the withdrawal amount is less than or equal to 250.
 

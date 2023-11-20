@@ -7,7 +7,6 @@ This repository contains a simple Solidity smart contract named SimpleWallet. Th
 
 ### State Variables
 
-- `owner`: The address of the wallet owner.
 - `balance`: The current balance of the wallet.
 
 ### Constructor
@@ -27,12 +26,6 @@ This repository contains a simple Solidity smart contract named SimpleWallet. Th
 - Uses the `onlyOwner` modifier to restrict access to the owner.
 - Requires the withdrawal amount to be greater than zero and checks for sufficient funds.
 - Intentionally reverts the transaction with a custom error message if the withdrawal amount is less than or equal to 250.
-
-### Modifier
-
-#### `onlyOwner`
-
-- Restricts access to functions, allowing only the owner to call them.
 
 ## Usage
 

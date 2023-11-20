@@ -9,18 +9,13 @@ contract SimpleWallet {
         owner = msg.sender;
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only the owner can call this function");
-        _;
-    }
-
     function deposit(uint256 amount) public payable {
         uint256 newBalance = balance + amount;
         assert(newBalance == 1000); 
         balance = newBalance;
     }
 
-    function withdraw(uint256 amount) public onlyOwner {
+    function withdraw(uint256 amount) public {
         require(amount > 0, "The amount must be greater than 0");
         require(balance >= amount, "Insufficient funds");
         if (amount <= 250) {

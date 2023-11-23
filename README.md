@@ -1,36 +1,59 @@
-# Simple Bank Wallet
+# MyToken
 
 ## Overview
-This repository contains a simple Solidity smart contract named SimpleWallet. The contract serves as a basic wallet, allowing deposits and withdrawals, with ownership control to ensure secure operations. It includes examples of using modifiers, assertions, and revert statements.
+
+This repository contains a Solidity smart contract named MyToken. The contract is an ERC-20 token that extends the OpenZeppelin ERC-20 implementation and includes additional functionality for minting, burning, and buying items. It also incorporates an ownership model.
 
 ## Contract Details
-
 ### State Variables
 
-- `balance`: The current balance of the wallet.
+- `_maxSupply`: The maximum supply limit for the token.
+
+### Struct
+
+- `Item`: A structure representing an item with a name and price.
+
+### Mapping
+
+- `_items`: A mapping associating item names with their details.
+
+### Events
+
+- `Mint(address indexed to, uint256 amount)`: Triggered when new tokens are minted.
+- `Burn(address indexed burner, uint256 amount)`: Triggered when tokens are burned.
+- `Buy(address indexed buyer, string item, uint256 price)`: Triggered when an item is bought.
 
 ### Constructor
 
-- Initializes the contract by setting the deployer's address as the owner.
+- Initializes the token with a name, symbol, initial supply, and maximum supply.
+- Predefines prices for three items: "Cable", "Battery", and "Phone".
 
 ### Functions
 
-#### `deposit(uint256 amount) public payable`
+#### `mint(address to, uint256 amount) public onlyOwner`
 
-- Allows anyone to deposit funds into the wallet.
-- Demonstrates the use of `assert` to ensure the new balance is a specific value (in this case, 1000).
+- Allows the owner to mint new tokens.
+- Emits a `Mint` event.
 
-#### `withdraw(uint256 amount) public onlyOwner`
+#### `burn(uint256 amount) public`
 
-- Allows the owner to withdraw funds from the wallet.
-- Requires the withdrawal amount to be greater than zero and checks for sufficient funds.
-- Intentionally reverts the transaction with a custom error message if the withdrawal amount is less than or equal to 250.
+- Allows any address to burn a specified amount of tokens.
+- Emits a `Burn` event.
+
+#### `transfer(address to, uint256 value) public override returns (bool)`
+
+- Overrides the transfer function from ERC20 to add transfer functionality with supply limit checks.
+
+#### `buy(string memory itemName) public`
+
+- Allows users to buy items with their tokens.
+- Emits a `Buy` event.
+- Handles item-specific burning and checks for item validity.
 
 ## Usage
 
 Deploy the contract to an Ethereum-compatible blockchain using a tool like Remix or Truffle.
 
 ## Author
-Donato, Zeno
-Email: 202011124@fit.edu.ph
-```
+Donato, Zeno Gilrence G.
+202011124@fit.edu.ph
